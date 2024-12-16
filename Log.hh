@@ -83,9 +83,10 @@ public:
 		mtx_.unlock();
 	}
 
+	std::string format(const char* fmt, ...);
+
 	// send text to logbook and change indentation afterwards
-	virtual void msg(const int incr, const char* fmt, ...) {
-		// lock for thread safety
+	virtual void msg(const int incr, const char* fmt, ...) { // lock for thread safety
 		mtx_.lock();
 
 		// create indentation

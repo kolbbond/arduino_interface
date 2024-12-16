@@ -1,6 +1,12 @@
 // include header file
 #include "Log.hh"
 
+#include <iostream>
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdarg.h>
+
+
 // constructor
 Log::Log(const LogoType logo) {
 }
@@ -53,4 +59,15 @@ void Log::hline(const int width, const char ch, const std::string& str1, const s
 		msg(0, "%c", ch);
 	}
 	msg(0, "%s\n", str2.c_str());
+}
+
+std::string format(const char* fmt, ...) {
+	char* result = 0;
+	va_list ap;
+	va_start(ap, fmt);
+	if(vasprintf(&result, fmt, ap) == -1) throw std::bad_alloc();
+	va_end(ap);
+	std::string str_result(result);
+	free(result);
+	return str_result;
 }
