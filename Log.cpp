@@ -61,7 +61,7 @@ void Log::hline(const int width, const char ch, const std::string& str1, const s
 	msg(0, "%s\n", str2.c_str());
 }
 
-std::string format(const char* fmt, ...) {
+std::string Log::format(const char* fmt, ...) {
 	char* result = 0;
 	va_list ap;
 	va_start(ap, fmt);
