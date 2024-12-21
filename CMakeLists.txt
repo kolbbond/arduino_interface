@@ -7,7 +7,10 @@ list(INSERT CMAKE_MODULE_PATH 0 ${CMAKE_SOURCE_DIR}/cmake)
 # add libraries
 find_package(TCLAP REQUIRED)
 find_package(Boost 1.66.0 REQUIRED system )
-find_package(InfluxDB)
+find_package(InfluxDB REQUIRED)
+
+# maybe?
+find_package(Armadillo)
 
 # create helper library
 add_library(extra Log.cpp)
@@ -27,8 +30,8 @@ target_link_libraries(http_getter
 )
 
 # influxwrite_http
-add_executable(influxwrite_http influxwrite_http.cpp)
-target_link_libraries(influxwrite_http
+add_executable(influxwrite influxwrite.cpp)
+target_link_libraries(influxwrite
     extra 
     Boost::system
     InfluxDB
