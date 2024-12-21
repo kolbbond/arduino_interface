@@ -13,24 +13,27 @@ find_package(InfluxDB REQUIRED)
 find_package(Armadillo)
 
 # create helper library
-add_library(extra Log.cpp)
+add_library(extra 
+    src/Log.cpp)
+target_include_directories(extra PUBLIC
+    include)
 
 # serial monitor
-add_executable(serial_monitor serial_monitor.cpp)
+add_executable(serial_monitor examples/serial_monitor.cpp)
 target_link_libraries(serial_monitor
     extra
     Boost::system
 )
 
 # http_getter
-add_executable(http_getter http_getter.cpp)
+add_executable(http_getter examples/http_getter.cpp)
 target_link_libraries(http_getter
     extra 
     Boost::system
 )
 
 # influxwrite_http
-add_executable(influxwrite influxwrite.cpp)
+add_executable(influxwrite examples/influxwrite.cpp)
 target_link_libraries(influxwrite
     extra 
     Boost::system
