@@ -4,6 +4,9 @@ project(arduino_interfaces)
 # fetch content?
 list(INSERT CMAKE_MODULE_PATH 0 ${CMAKE_SOURCE_DIR}/cmake)
 
+# should be default for clang LSP support
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
 # add libraries
 find_package(TCLAP REQUIRED)
 find_package(Boost 1.66.0 REQUIRED system )
