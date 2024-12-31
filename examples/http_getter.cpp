@@ -1,10 +1,17 @@
 // from chatgpt example
 
-#include <boost/beast.hpp>
-#include <boost/asio.hpp>
+// cpp includes
 #include <iostream>
+#include <fstream>
 #include <chrono>
 #include <thread>
+
+// externals
+#include <boost/beast.hpp>
+#include <boost/asio.hpp>
+#include <json/json.h>
+
+// internals
 #include "Log.hh"
 #include "HttpHelper.hh"
 
@@ -26,14 +33,49 @@ std::vector<std::string> split_string(const std::string& str, char delimiter) {
 // vector of servers
 std::vector<HttpHelper::serverconfig> myservers;
 
-int main() {
+int main(int argc, char** argv) {
 
 	// create log
 	ShLogPr lg = Log::create();
 
-	// add servers to list
-	myservers.push_back({"10.0.0.89"});
-	myservers.push_back({"10.0.0.175"});
+	// Open and parse JSON file
+	std::ifstream file("../examples/servers.json", std::ifstream::binary);
+	if(!file.is_open()) {
+		lg->msg("%sFile not open%s\n", KRED, KNRM);
+		return 1;
+	}
+
+	Json::Value root;
+	file >> root;
+
+	// Access servers array
+	const Json::Value servers = root["servers"];
+	for(const auto& server : servers) {
+		// new server config
+		HttpHelper::serverconfig myserver;
+		std::string name = server["name"].asString();
+		std::string ip = server["ip"].asString();
+		int port = server["port"].asInt();
+		std::string page = server["page"].asString();
+		std::string location = server["location"].asString();
+
+		// log
+		std::cout << "--- new server --- \n";
+		std::cout << "name: " << name << "\n";
+		std::cout << "ip: " << ip << "\n";
+		std::cout << "port: " << port << "\n";
+		std::cout << "page: " << page << "\n";
+		std::cout << "location: " << location << "\n";
+
+		// add struct to vector
+		myserver.name = name;
+		myserver.ip = ip;
+		myserver.port = port;
+		myserver.page = page;
+		myserver.location = location;
+
+		myservers.push_back(myserver);
+	}
 
 	// clock
 
@@ -46,6 +88,7 @@ int main() {
 		// walk over servers
 		for(int i = 0; i < myservers.size(); i++) {
 
+			HttpHelper::serverconfig myserver = myservers[i];
 			// error catch
 			try {
 
@@ -55,13 +98,13 @@ int main() {
 				boost::beast::tcp_stream stream(ioc);
 
 				// connect to server
-				auto const results = resolver.resolve(myservers[i].name, "80");
+				auto const results = resolver.resolve(myserver.ip, std::to_string(myserver.port));
 				stream.connect(results);
 
 				// start the get request
 				boost::beast::http::request<boost::beast::http::string_body> req{
-					boost::beast::http::verb::get, "/data", 11};
-				req.set(boost::beast::http::field::host, myservers[i].name);
+					boost::beast::http::verb::get, "/" + myserver.page, 11};
+				req.set(boost::beast::http::field::host, myserver.ip);
 				req.set(boost::beast::http::field::user_agent, BOOST_BEAST_VERSION_STRING);
 
 				boost::beast::http::write(stream, req);
@@ -85,6 +128,7 @@ int main() {
 				} rdata;
 
 				// message now is
+				// @hey: maybe change to... a json? idk A BETTER FORMAT
 				// Temperature [°F]: 75.02  |  Humidity [%]: 37.00
 				// so split by | and then :
 				std::vector<std::string> mparts = split_string(body, '|');
@@ -123,7 +167,9 @@ int main() {
 				// error code and exit
 				boost::beast::error_code ec;
 				stream.socket().shutdown(boost::asio::ip::tcp::socket::shutdown_both, ec);
+
 			} catch(std::exception& e) {
+				lg->msg("%sERROR ERROR%s\n", KRED, KNRM);
 				std::cerr << "Error: " << e.what() << std::endl;
 			}
 		}
@@ -133,6 +179,7 @@ int main() {
 		auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
 
 		// Sleep for the remainder of the second
+		// @question: is sleeping better than running a bunch of cycles...?
 		if(duration < std::chrono::milliseconds(1000)) {
 			std::this_thread::sleep_for(std::chrono::milliseconds(1000) - duration);
 		}

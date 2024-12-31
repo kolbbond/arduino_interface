@@ -7,6 +7,7 @@ git clone https://github.com/libcpr/cpr.git deps/cpr
 git clone https://github.com/rollbear/trompeloeil.git deps/trompeloeil
 git clone https://github.com/catchorg/Catch2.git deps/Catch2
 git clone https://github.com/offa/influxdb-cxx.git deps/influxdb-cxx
+git clone https://github.com/open-source-parsers/jsoncpp.git deps/jsoncpp
 
 # extra output
 echo "The script you are running has:"
@@ -38,6 +39,12 @@ cd ${pwds}
 
 # install influxdb-cxx
 cd deps/influxdb-cxx
+cmake -B build -DCMAKE_INSTALL_PREFIX=~/.local
+cmake --build build --parallel --target install
+cd ${pwds}
+
+# install jsoncpp
+cd deps/jsoncpp
 cmake -B build -DCMAKE_INSTALL_PREFIX=~/.local
 cmake --build build --parallel --target install
 cd ${pwds}

@@ -27,8 +27,8 @@ int main() {
 			std::cout << "Point written to InfluxDB successfully!" << std::endl;
 
 			// Query data from the database
-            // debug debug debug
-            /*
+			// debug debug debug
+			/*
 			auto points = influxdb->query("SELECT * FROM testname WHERE location = 'office'");
 
 			// Print the queried points
@@ -42,14 +42,14 @@ int main() {
 			std::cerr << "Error: " << e.what() << std::endl;
 		}
 
-			// check clock
-			auto end = std::chrono::steady_clock::now();
-			auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
+		// check clock
+		auto end = std::chrono::steady_clock::now();
+		auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
 
-			// Sleep for the remainder of the second
-			if(duration < std::chrono::milliseconds(1000)) {
-				std::this_thread::sleep_for(std::chrono::milliseconds(1000) - duration);
-			}
+		// Sleep for the remainder of the second
+		if(duration < std::chrono::milliseconds(1000)) {
+			std::this_thread::sleep_for(std::chrono::milliseconds(1000) - duration);
+		}
 	}
 
 	return 0;
