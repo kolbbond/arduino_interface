@@ -3,12 +3,13 @@
 
 #include <iostream>
 #include <boost/asio.hpp>
+
 #include "Log.hh"
 
 
+// main
 int main(int argc, char** argv) {
 
-	// add tclap for input @hey:
 	// create tclap object
 	TCLAP::CmdLine cmd("Serial Monitor (serial port, baudrate)", ' ');
 
@@ -18,7 +19,7 @@ int main(int argc, char** argv) {
 	TCLAP::UnlabeledValueArg<int> input_baudrate_argument("br", "baudrate", false, 9600, "int", cmd);
 	cmd.parse(argc, argv);
 
-	// add log for color @hey:
+	// create log
 	const ShLogPr lg = Log::create();
 	lg->msg("%sConnect to serial port with baudrate%s\n", KBLU, KNRM);
 

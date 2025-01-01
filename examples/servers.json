@@ -1,6 +1,6 @@
 {
     "servers": [
-        {"name": "esp8266-1", "ip":"10.0.0.175", "port": 80,"page": "data","location": "kitchen",},
-        {"name": "esp8266-2", "ip":"10.0.0.89", "port": 80,"page": "data","location": "living room",},
+        {"name": "esp8266-1", "ip":"10.0.0.175", "port": 80,"page": "data","location": "kitchen", "sensor": "esp8266", "tag": 1},
+        {"name": "esp8266-2", "ip":"10.0.0.89", "port": 80,"page": "data","location": "living room","sensor": "esp8266", "tag": 2},
     ]
 }

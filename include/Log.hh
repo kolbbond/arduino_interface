@@ -8,6 +8,7 @@
 #include <mutex>
 #include <vector>
 
+#include "typedefs.hh"
 
 // shared pointer definition for log
 typedef std::shared_ptr<class Log> ShLogPr;
@@ -41,6 +42,10 @@ public:
 
 	// virtual destructor (obligatory)
 	virtual ~Log() {};
+
+	void test() {
+		msg("%stest\n%s", KRED, KNRM);
+	};
 
 	// only change indent
 	virtual void msg(const int incr);
