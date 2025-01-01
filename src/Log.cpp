@@ -1,7 +1,6 @@
 // include header file
 #include "Log.hh"
 
-#include <iostream>
 #include <sstream>
 #include <stdio.h>
 #include <stdlib.h>

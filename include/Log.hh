@@ -4,12 +4,10 @@
 // general headers
 #include <cassert>
 #include <memory>
-#include <stdio.h>
 #include <stdarg.h> /* va_list, va_start, va_arg, va_end */
 #include <mutex>
 #include <vector>
 
-#include "typedefs.hh"
 
 // shared pointer definition for log
 typedef std::shared_ptr<class Log> ShLogPr;
@@ -84,10 +82,10 @@ public:
 		mtx_.unlock();
 	}
 
-	std::string format(const char* fmt, ...);
+	static std::string format(const char* fmt, ...);
 
 	// string splitter
-	std::vector<std::string> split_string(const std::string& str, char delimiter);
+	static std::vector<std::string> split_string(const std::string& str, char delimiter);
 
 	// send text to logbook and change indentation afterwards
 	virtual void msg(const int incr, const char* fmt, ...) { // lock for thread safety
