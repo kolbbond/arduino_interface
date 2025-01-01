@@ -39,7 +39,9 @@ cd ${pwds}
 
 # install influxdb-cxx
 cd deps/influxdb-cxx
-cmake -B build -DCMAKE_INSTALL_PREFIX=~/.local
+cmake -B build -DCMAKE_INSTALL_PREFIX=~/.local \
+    -DCMAKE_CXX_STANDARD=20 \
+    -DCMAKE_CXX_STANDARD_REQUIRED=ON;
 cmake --build build --parallel --target install
 cd ${pwds}
 

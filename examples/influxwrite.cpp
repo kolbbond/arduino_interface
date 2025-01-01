@@ -97,7 +97,7 @@ int main(int argc, char** argv) {
 				body = HttpHelper::make_request(myserver);
 				good_req = true;
 			} catch(std::exception& e) {
-				lg->msg("%sERROR ERROR%s\n", KRED, KNRM);
+				//lg->msg("%sERROR ERROR in request%s\n", KRED, KNRM);
 				body = "error";
 				std::cerr << "Error: " << e.what() << std::endl;
 			}
