@@ -46,5 +46,6 @@ target_link_libraries(influxwrite PUBLIC
     extra 
     Boost::system
     InfluxData::InfluxDB
+    jsoncpp
 )
 

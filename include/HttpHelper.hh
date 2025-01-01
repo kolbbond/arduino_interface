@@ -30,6 +30,8 @@ public:
 		int port; // probably 80
 		std::string page; // after the name /data for example
 		std::string location; // where it is, kinda useless
+        std::string sensor;
+        std::string tag;
 		bool connected = false; // if we are connected
 	};
 
@@ -86,6 +88,8 @@ public:
 			int port = server["port"].asInt();
 			std::string page = server["page"].asString();
 			std::string location = server["location"].asString();
+			std::string sensor = server["sensor"].asString();
+			std::string tag = server["tag"].asString();
 
 			// log
 			std::cout << "--- new server --- \n";
@@ -94,6 +98,8 @@ public:
 			std::cout << "port: " << port << "\n";
 			std::cout << "page: " << page << "\n";
 			std::cout << "location: " << location << "\n";
+			std::cout << "sensor: " << sensor << "\n";
+			std::cout << "tag: " << tag << "\n";
 
 			// add struct to vector
 			myserver.name = name;
@@ -101,6 +107,8 @@ public:
 			myserver.port = port;
 			myserver.page = page;
 			myserver.location = location;
+			myserver.sensor = sensor;
+			myserver.tag = tag;
 
 			// add to our servers
 			_servers.push_back(myserver);
