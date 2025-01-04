@@ -1,5 +1,3 @@
-//
-
 // HttpHelper.hh
 
 #pragma once

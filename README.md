@@ -1,4 +1,6 @@
 # C++ code to interface with arduino
+Goal to read data from arduino and write to influx database
+and remotely track using Grafana
 
 ## Dependencies
 This requires 
@@ -18,11 +20,12 @@ to install the other dependencies
 build like cmake
 
 ## programs in examples
-serial_monitor
-http_getter
-influxwrite
+serial_monitor -> read from serial port (/dev/ttyUSB0 etc.)
+http_getter -> read over http 
+influxwrite -> read over http and write to influx
 
 to run in background use 
 nohup ./influxwrite & 
 
+You can set up grafana to access the database and plot remotely.
 

@@ -1,4 +1,5 @@
 // include header file
+// mostly lifted from Van Nugteren
 #include "Log.hh"
 
 #include <sstream>

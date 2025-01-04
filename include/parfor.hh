@@ -6,6 +6,9 @@
 #include <future>
 #include <vector>
 
+// SUPER useful parfor
+// lifted from Van Nugteren
+
 // parallel for loop implementation as template class.
 // Code modified from Andy Thomason:
 // http://www.andythomason.com/2016/08/21/c-multithreading-an-effective-parallel-for-loop/
