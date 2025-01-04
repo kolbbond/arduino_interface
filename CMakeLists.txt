@@ -49,3 +49,12 @@ target_link_libraries(influxwrite PUBLIC
     jsoncpp
 )
 
+# install
+install(FILES 
+    ${CMAKE_BINARY_DIR}/serial_monitor
+    ${CMAKE_BINARY_DIR}/http_getter
+    ${CMAKE_BINARY_DIR}/influxwrite
+    PERMISSIONS OWNER_EXECUTE OWNER_WRITE OWNER_READ GROUP_EXECUTE WORLD_EXECUTE
+    DESTINATION ${CMAKE_INSTALL_PREFIX}/bin
+)
+
